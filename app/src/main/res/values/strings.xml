@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Iqama Times</string>
+
+    <string-array name="prayers">
+        <item>Fajr</item>
+        <item>Dhuhr</item>
+        <item>Asr</item>
+        <item>Maghrib</item>
+        <item>Isha</item>
+    </string-array>
+
+    <string-array name="prayers_ar">
+        <item>فجر</item>
+        <item>ظهر</item>
+        <item>عصر</item>
+        <item>مغرب</item>
+        <item>عشاء</item>
+    </string-array>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+</resources>
