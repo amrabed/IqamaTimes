@@ -1,7 +1,10 @@
-package community.icb.iqama;
+package community.icb.iqama.utilities;
 
 import org.joda.time.DateTime;
-import org.joda.time.chrono.StrictChronology;
+import org.joda.time.DateTimeZone;
+import org.joda.time.Instant;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,40 +16,73 @@ import java.util.Arrays;
  */
 public class IqamaTimes
 {
-    private static final String FORMAT = "HH:mm";
+    private static final String FORMAT = "h:mm";
 
     public static String[] get(DateTime date)
     {
-        final int year = date.getYear();
-        final int month = date.getMonthOfYear();
-        final int day = date.getDayOfMonth();
+        final String[] times = iqamaTimes[getIndex(date)];
+        final int shift = getTimeShift(date);
 
-        final String[] times = iqamaTimes[getIndex(day, month)];
-
-        final int shift = getTimeShift(day, month, year);
-        if(shift == 0)
+        if (shift == 0)
         {
             return times;
         }
-
+        
         final ArrayList<String> newTimes = new ArrayList<>();
-        for(String time : times)
+        for (String time : times)
         {
-            newTimes.add(DateTime.parse(time).plusHours(shift).toString(FORMAT));
+            final DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern(FORMAT).toFormatter();
+            newTimes.add(DateTime.parse(time, formatter).plusHours(shift).toString(FORMAT));
         }
-        return (String []) newTimes.toArray();
-
+        return newTimes.toArray(new String[0]);
     }
 
-    private static int getIndex(int day, int month)
+    private static int getIndex(DateTime date)
     {
-        return 3 * (month - 1) + (day / 10);
+        final int month = date.getMonthOfYear();
+        final int day = date.getDayOfMonth();
+
+        final int offset = (day != 31) ? (day - 1) / 10 : 2;
+        return 3 * (month - 1) + offset;
     }
 
-    private static int getTimeShift(int day, int month, int year)
+    private static int getTimeShift(DateTime date)
     {
+        final int month = date.getMonthOfYear();
         // ToDo (AmrAbed): Handle dayligth saving
-        return 0;
+        if (month != 3 && month != 11)
+        {
+            return 0;
+        }
+
+        if (month == 3)
+        {
+            if (isStandardTime(date))
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        //if(month == 11)
+        {
+            if (isStandardTime(date))
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+    }
+
+    private static boolean isStandardTime(DateTime dateTime)
+    {
+        return DateTimeZone.getDefault().isStandardOffset(dateTime.toInstant().getMillis());
     }
 
     private static final String iqamaTimes[][] = {{"6:40", "12:45", "3:15", "5:30", "7:00"},
@@ -55,7 +91,7 @@ public class IqamaTimes
             {"6:40", "12:45", "3:45", "6:00", "7:20"},
             {"6:30", "12:45", "3:45", "6:10", "7:30"},
             {"6:20", "12:45", "4:00", "6:20", "7:40"},
-            {"6:00", "12:45", "4:00", "6:30", "7:50"},
+            {"7:00", "1:45", "5:00", "7:30", "8:50"},
             {"6:50", "1:45", "5:00", "7:40", "9:00"},
             {"6:40", "1:45", "5:15", "7:50", "9:10"},
             {"6:20", "1:45", "5:15", "8:00", "9:20"},

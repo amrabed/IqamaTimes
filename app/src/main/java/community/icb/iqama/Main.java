@@ -1,22 +1,20 @@
 package community.icb.iqama;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 
-import org.joda.time.DateTime;
+import community.icb.iqama.utilities.Date;
 
 /**
  * Main Activity
  *
  * @author AmrAbed
  */
-public class Main extends Activity implements DateHandler.Listener
+public class Main extends FragmentActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,60 +23,42 @@ public class Main extends Activity implements DateHandler.Listener
 
         setContentView(R.layout.main);
 
-        new DateHandler(this, (TextView) findViewById(R.id.date), this);
+        ((ViewPager) findViewById(R.id.pager)).setAdapter(new Adapter(getSupportFragmentManager()));
+
     }
 
-    @Override
-    public void onDateChanged(DateTime newDate)
+    private class Adapter extends FragmentPagerAdapter
     {
-        // Show Iqama Times
-        final RecyclerView listView = (RecyclerView) findViewById(R.id.times);
-        listView.setLayoutManager(new LinearLayoutManager(this));
-        listView.setAdapter(new Adapter(newDate));
-    }
 
-    private class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>
-    {
-        private final String[] iqamaTimes;
-
-        private Adapter(DateTime date)
+        public Adapter(FragmentManager manager)
         {
-            iqamaTimes = IqamaTimes.get(date);
-        }
-
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-        {
-            final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
-            return new ViewHolder(view);
+            super(manager);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position)
+        public Fragment getItem(int position)
         {
-            holder.label.setText(getResources().getStringArray(R.array.prayers)[position]);
-            holder.label2.setText(getResources().getStringArray(R.array.prayers_ar)[position]);
-            holder.time.setText(iqamaTimes[position]);
+            return Section.newInstance(position);
         }
 
         @Override
-        public int getItemCount()
+        public int getCount()
         {
-            return 5;
+            return 2;
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder
+        @Override
+        public CharSequence getPageTitle(int position)
         {
-            TextView label, label2, time;
-
-            public ViewHolder(View view)
+            switch(position)
             {
-                super(view);
-                label = (TextView) view.findViewById(R.id.label);
-                label2 = (TextView) view.findViewById(R.id.label_ar);
-                time = (TextView) view.findViewById(R.id.iqama);
+                case 0:
+                    return Date.today().toString(Date.DEFAULT_FORMAT);
+                case 1:
+                    return Date.tomorrow().toString(Date.DEFAULT_FORMAT);
             }
+            return super.getPageTitle(position);
         }
     }
+
 }
