@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="prayers_en">
+        <item>Fajr</item>
+        <item>Dhuhr</item>
+        <item>Asr</item>
+        <item>Maghrib</item>
+        <item>Isha</item>
+    </string-array>
+
+    <string-array name="prayers_ar">
+        <item>الفجر</item>
+        <item>الظهر</item>
+        <item>العصر</item>
+        <item>المغرب</item>
+        <item>العشاء</item>
+    </string-array>
+
+    <string-array name="support">
+        <item>New ICB Project</item>
+        <item>ICB Expenses</item>
+        <item>ICB Da\'wah</item>
+        <!--<item>ICB Social Activities</item>-->
+    </string-array>
+</resources>

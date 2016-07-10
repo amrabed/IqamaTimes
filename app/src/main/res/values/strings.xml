@@ -1,19 +1,4 @@
 <resources>
     <string name="app_name">Iqama Times</string>
-
-    <string-array name="prayers_en">
-        <item>Fajr</item>
-        <item>Dhuhr</item>
-        <item>Asr</item>
-        <item>Maghrib</item>
-        <item>Isha</item>
-    </string-array>
-
-    <string-array name="prayers_ar">
-        <item>الفجر</item>
-        <item>الظهر</item>
-        <item>العصر</item>
-        <item>المغرب</item>
-        <item>العشاء</item>
-    </string-array>
+    <string name="support">Support the ICB</string>
 </resources>
