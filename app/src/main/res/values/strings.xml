@@ -10,10 +10,10 @@
     </string-array>
 
     <string-array name="prayers_ar">
-        <item>فجر</item>
-        <item>ظهر</item>
-        <item>عصر</item>
-        <item>مغرب</item>
-        <item>عشاء</item>
+        <item>الفجر</item>
+        <item>الظهر</item>
+        <item>العصر</item>
+        <item>المغرب</item>
+        <item>العشاء</item>
     </string-array>
 </resources>

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+
 import community.icb.iqama.utilities.Date;
 import community.icb.iqama.utilities.IqamaTimes;
 
@@ -71,11 +73,21 @@ public class Section extends Fragment
         @Override
         public void onBindViewHolder(ViewHolder holder, int position)
         {
-            holder.englishLabel.setText(getResources().getStringArray(R.array.prayers_en)[position]);
-            holder.arabicLabel.setText(getResources().getStringArray(R.array.prayers_ar)[position]);
+            final DateTime date = Date.today().plusDays(sectionNumber);
+            final String[] iqamaTimes = IqamaTimes.get(date);
 
-            final String[] iqamaTimes = IqamaTimes.get(Date.today().plusDays(sectionNumber));
-            holder.time.setText(iqamaTimes[position]);
+            if(date.getDayOfWeek() == 5 && position == 1)
+            {
+                holder.arabicLabel.setText("الجمعة");
+                holder.englishLabel.setText("Jumu'a");
+                holder.time.setText("1:30");
+            }
+            else
+            {
+                holder.englishLabel.setText(getResources().getStringArray(R.array.prayers_en)[position]);
+                holder.arabicLabel.setText(getResources().getStringArray(R.array.prayers_ar)[position]);
+                holder.time.setText(iqamaTimes[position]);
+            }
         }
 
         @Override
