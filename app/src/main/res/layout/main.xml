@@ -2,7 +2,6 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/background"
               android:orientation="vertical"
               tools:context=".Main">
 
@@ -16,16 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textAlignment="center"/>
-
     </android.support.v4.view.ViewPager>
 
     <Button
         android:id="@+id/support"
-        style="@android:style/Widget.Material.Button.Borderless.Colored"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@android:color/white"
+        android:background="@color/primary"
+        android:textColor="@color/logoWhite"
         android:elevation="4dp"
         android:onClick="onClick"
         android:text="@string/support"

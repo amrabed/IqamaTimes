@@ -2,15 +2,24 @@
 <resources>
 
     <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primaryDark</item>
+        <item name="android:colorAccent">@color/accent</item>
     </style>
 
-    <style name="TextStyle" parent="Base.TextAppearance.AppCompat.Subhead.Inverse">
+    <style name="CardText" parent="android:TextAppearance.Material">
         <item name="android:layout_margin">16dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="WidgetText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/logoWhite</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>
