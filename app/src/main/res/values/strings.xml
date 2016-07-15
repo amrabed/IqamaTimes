@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Iqama Times</string>
     <string name="support">Support the ICB</string>
+
+    <string name="calendar">Add to Google Calendar</string>
+    <string name="OK">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="calendar_message">This will add prayer times for the current 10 days to your Google calendar</string>
+    <string name="already_added">You have already added the current 10 days to the calendar. Add them again?</string>
 </resources>
