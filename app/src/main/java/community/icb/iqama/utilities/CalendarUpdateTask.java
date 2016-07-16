@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import community.icb.iqama.R;
-import community.icb.iqama.utilities.IqamaTimes;
+import community.icb.iqama.common.Prayers;
 
 /**
  * Calendar Update Task
@@ -69,14 +69,14 @@ public class CalendarUpdateTask extends AsyncTask<Void, Void, Void>
 
     private void insertData() throws IOException
     {
-        final DateTime date = new DateTime(System.currentTimeMillis());
-        final String[] iqamaTimes = IqamaTimes.get(date);
+        final DateTime date = Date.today();
+        final Prayers prayers = new Prayers(context, date);
 
-        for (int i = 0; i < iqamaTimes.length; i++)
+        for (int i = 0; i < Prayers.COUNT; i++)
         {
-            final String title = context.getResources().getStringArray(R.array.prayers_en)[i] + PRAYER;
+            final String title = prayers.getEnglishName(i) + PRAYER;
 
-            final EventDateTime time = getEventTime(iqamaTimes[i] + (i < 1 ? "am" : "pm"), date);
+            final EventDateTime time = getEventTime(prayers.getTime(i) + (i < 1 ? "am" : "pm"), date);
 
             final Event event = new Event().setSummary(title)
                     .setDescription("Iqama time for Islamic Center of Blacksburg")

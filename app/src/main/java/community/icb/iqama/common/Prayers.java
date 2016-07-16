@@ -1,43 +1,80 @@
-package community.icb.iqama.utilities;
+package community.icb.iqama.common;
+
+import android.content.Context;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.joda.time.Instant;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
+import community.icb.iqama.R;
 
 /**
- * Iqama Times for selected date
+ * Prayer times of given date
  *
  * @author AmrAbed
  */
-public class IqamaTimes
+public class Prayers
 {
     private static final String FORMAT = "h:mm";
+    private static final int FRIDAY = 5;
 
-    public static String[] get(DateTime date)
+    public static final int FAJR = 0;
+    public static final int DHUHR = 1;
+    public static final int ASR = 2;
+    public static final int MAGHRIB = 3;
+    public static final int ISHA = 4;
+    public static final int COUNT = 5;
+
+    private final Context context;
+    private final DateTime date;
+
+    private final int index;
+    private final int timeShift;
+    private final DateTimeFormatter formatter;
+
+    public Prayers(Context context, DateTime date)
     {
-        final String[] times = iqamaTimes[getIndex(date)];
-        final int shift = getTimeShift(date);
+        this.context = context;
+        this.date = date;
 
-        if (shift == 0)
-        {
-            return times;
-        }
-        
-        final ArrayList<String> newTimes = new ArrayList<>();
-        for (String time : times)
-        {
-            final DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern(FORMAT).toFormatter();
-            newTimes.add(DateTime.parse(time, formatter).plusHours(shift).toString(FORMAT));
-        }
-        return newTimes.toArray(new String[0]);
+        index = getIndex(date);
+        timeShift = getTimeShift(date);
+        formatter = new DateTimeFormatterBuilder().appendPattern(FORMAT).toFormatter();
     }
 
-    private static int getIndex(DateTime date)
+    public String getTime(int prayer)
+    {
+        if(isFridayPrayer(prayer))
+        {
+            // Friday prayer is 1:30PM all year
+            return "1:30";
+        }
+        final String time = iqamaTimes[index][prayer];
+        return DateTime.parse(time, formatter).plusHours(timeShift).toString(FORMAT);
+    }
+
+    public String getArabicName(int prayer)
+    {
+        if(isFridayPrayer(prayer))
+        {
+            return context.getString(R.string.friday_ar);
+        }
+        return context.getResources().getStringArray(R.array.prayers_ar)[prayer];
+    }
+
+    public String getEnglishName(int prayer)
+    {
+        if(isFridayPrayer(prayer))
+        {
+            return context.getString(R.string.friday_en);
+        }
+        return context.getResources().getStringArray(R.array.prayers_en)[prayer];
+    }
+
+    private int getIndex(DateTime date)
     {
         final int month = date.getMonthOfYear();
         final int day = date.getDayOfMonth();
@@ -46,7 +83,7 @@ public class IqamaTimes
         return 3 * (month - 1) + offset;
     }
 
-    private static int getTimeShift(DateTime date)
+    private int getTimeShift(DateTime date)
     {
         final int month = date.getMonthOfYear();
         // ToDo (AmrAbed): Handle dayligth saving
@@ -80,7 +117,12 @@ public class IqamaTimes
         }
     }
 
-    private static boolean isStandardTime(DateTime dateTime)
+    private boolean isFridayPrayer(int prayer)
+    {
+        return prayer == DHUHR && date.getDayOfWeek() == FRIDAY;
+    }
+
+    private boolean isStandardTime(DateTime dateTime)
     {
         return DateTimeZone.getDefault().isStandardOffset(dateTime.toInstant().getMillis());
     }
@@ -121,4 +163,5 @@ public class IqamaTimes
             {"6:30", "12:30", "3:00", "5:10", "7:00"},
             {"6:40", "12:30", "3:00", "5:15", "7:00"},
             {"6:40", "12:45", "3:00", "5:20", "7:00"}};
+
 }

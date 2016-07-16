@@ -32,24 +32,24 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/WidgetText"
-            android:text="Fajr"/>
+            android:id="@+id/fajr_label"
+            style="@style/WidgetText"/>
 
         <TextView
-            style="@style/WidgetText"
-            android:text="Dhuhr"/>
+            android:id="@+id/dhuhr_label"
+            style="@style/WidgetText"/>
 
         <TextView
-            style="@style/WidgetText"
-            android:text="Asr"/>
+            android:id="@+id/asr_label"
+            style="@style/WidgetText"/>
 
         <TextView
-            style="@style/WidgetText"
-            android:text="Maghrib"/>
+            android:id="@+id/maghrib_label"
+            style="@style/WidgetText"/>
 
         <TextView
-            style="@style/WidgetText"
-            android:text="Ishaa"/>
+            android:id="@+id/isha_label"
+            style="@style/WidgetText"/>
 
     </LinearLayout>
 

@@ -7,4 +7,6 @@
     <string name="cancel">Cancel</string>
     <string name="calendar_message">This will add prayer times for the current 10 days to your Google calendar</string>
     <string name="already_added">You have already added the current 10 days to the calendar. Add them again?</string>
+    <string name="friday_ar">الجمعة</string>
+    <string name="friday_en">Jumu\'a</string>
 </resources>
