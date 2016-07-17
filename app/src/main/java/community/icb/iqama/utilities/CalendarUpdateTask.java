@@ -75,8 +75,7 @@ public class CalendarUpdateTask extends AsyncTask<Void, Void, Void>
         for (int i = 0; i < Prayers.COUNT; i++)
         {
             final String title = prayers.getEnglishName(i) + PRAYER;
-
-            final EventDateTime time = getEventTime(prayers.getTime(i) + (i < 1 ? "am" : "pm"), date);
+            final EventDateTime time = getEventTime(prayers.getDateTime(i, date));
 
             final Event event = new Event().setSummary(title)
                     .setDescription("Iqama time for Islamic Center of Blacksburg")
@@ -130,15 +129,9 @@ public class CalendarUpdateTask extends AsyncTask<Void, Void, Void>
 //        new Handler(context.getMainLooper()).post(runnable);
 //    }
 
-    private EventDateTime getEventTime(String iqamaTime, DateTime date)
+    private EventDateTime getEventTime(DateTime date)
     {
-        final DateTime time = DateTime.parse(iqamaTime, new DateTimeFormatterBuilder()
-                .appendPattern("h:mma").toFormatter());
-
-        final long timeMillis = date.withDayOfMonth(getFirstDay(date))
-                .withHourOfDay(time.getHourOfDay())
-                .withMinuteOfHour(time.getMinuteOfHour()).getMillis();
-
+        final long timeMillis = date.withDayOfMonth(getFirstDay(date)).getMillis();
         return new EventDateTime().setDateTime(new com.google.api.client.util.DateTime(timeMillis))
                 .setTimeZone(TIME_ZONE);
     }

@@ -5,4 +5,4 @@
                                         android:layout_height="wrap_content"
                                         android:layout_margin="10dp"
                                         android:layout_gravity="center"
-                                        tools:context=".Section"/>
+                                        tools:context=".main.Section"/>

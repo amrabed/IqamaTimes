@@ -1,4 +1,4 @@
-package community.icb.iqama;
+package community.icb.iqama.main;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.joda.time.DateTime;
 
+import community.icb.iqama.R;
 import community.icb.iqama.common.Prayers;
 import community.icb.iqama.utilities.Date;
 
@@ -79,6 +80,14 @@ public class Section extends Fragment
             holder.arabicLabel.setText(prayers.getArabicName(position));
             holder.englishLabel.setText(prayers.getEnglishName(position));
             holder.time.setText(prayers.getTime(position));
+
+            if(prayers.isNextPrayer(position))
+            {
+                final int highlight = getResources().getColor(R.color.highlight);
+                holder.time.setTextColor(highlight);
+                holder.arabicLabel.setTextColor(highlight);
+                holder.englishLabel.setTextColor(highlight);
+            }
         }
 
         @Override

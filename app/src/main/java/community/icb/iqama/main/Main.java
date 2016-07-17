@@ -1,4 +1,4 @@
-package community.icb.iqama;
+package community.icb.iqama.main;
 
 import android.Manifest;
 import android.accounts.AccountManager;
@@ -28,6 +28,7 @@ import org.joda.time.DateTime;
 
 import java.util.List;
 
+import community.icb.iqama.R;
 import community.icb.iqama.utilities.ApiManager;
 import community.icb.iqama.utilities.CalendarUpdateTask;
 import community.icb.iqama.utilities.Date;

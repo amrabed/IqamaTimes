@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import community.icb.iqama.Main;
+import community.icb.iqama.main.Main;
 import community.icb.iqama.R;
 import community.icb.iqama.common.Prayers;
 import community.icb.iqama.utilities.Date;
@@ -51,18 +51,22 @@ public class Widget extends AppWidgetProvider
 		views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 		views.setTextViewText(R.id.date, Date.today().toString(Date.DEFAULT_FORMAT));
 
-		views.setTextViewText(R.id.fajr_label, prayers.getEnglishName(Prayers.FAJR));
-		views.setTextViewText(R.id.dhuhr_label, prayers.getEnglishName(Prayers.DHUHR));
-		views.setTextViewText(R.id.asr_label, prayers.getEnglishName(Prayers.ASR));
-		views.setTextViewText(R.id.maghrib_label, prayers.getEnglishName(Prayers.MAGHRIB));
-		views.setTextViewText(R.id.isha_label, prayers.getEnglishName(Prayers.ISHA));
-
-		views.setTextViewText(R.id.fajr, prayers.getTime(Prayers.FAJR));
-		views.setTextViewText(R.id.dhuhr, prayers.getTime(Prayers.DHUHR));
-		views.setTextViewText(R.id.asr, prayers.getTime(Prayers.ASR));
-		views.setTextViewText(R.id.maghrib, prayers.getTime(Prayers.MAGHRIB));
-		views.setTextViewText(R.id.isha, prayers.getTime(Prayers.ISHA));
+		for(int i = 0; i < 5; i++)
+		{
+			views.setTextViewText(LABELS[i], prayers.getEnglishName(i));
+			views.setTextViewText(TIMES[i], prayers.getTime(i));
+			if(prayers.isNextPrayer(i))
+			{
+				final int highlight = context.getResources().getColor(R.color.highlight);
+				views.setTextColor(LABELS[i], highlight);
+				views.setTextColor(TIMES[i], highlight);
+			}
+		}
 
 		manager.updateAppWidget(widgetId, views);
 	}
+
+	private static final int[] TIMES = {R.id.fajr, R.id.dhuhr, R.id.asr, R.id.maghrib, R.id.isha};
+	private static final int[] LABELS = {R.id.fajr_label, R.id.dhuhr_label, R.id.asr_label,
+			R.id.maghrib_label, R.id.isha_label};
 }

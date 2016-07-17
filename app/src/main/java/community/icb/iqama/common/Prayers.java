@@ -7,9 +7,8 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
-import java.util.ArrayList;
-
 import community.icb.iqama.R;
+import community.icb.iqama.utilities.Date;
 
 /**
  * Prayer times of given date
@@ -18,7 +17,6 @@ import community.icb.iqama.R;
  */
 public class Prayers
 {
-    private static final String FORMAT = "h:mm";
     private static final int FRIDAY = 5;
 
     public static final int FAJR = 0;
@@ -33,7 +31,6 @@ public class Prayers
 
     private final int index;
     private final int timeShift;
-    private final DateTimeFormatter formatter;
 
     public Prayers(Context context, DateTime date)
     {
@@ -42,7 +39,6 @@ public class Prayers
 
         index = getIndex(date);
         timeShift = getTimeShift(date);
-        formatter = new DateTimeFormatterBuilder().appendPattern(FORMAT).toFormatter();
     }
 
     public String getTime(int prayer)
@@ -53,7 +49,7 @@ public class Prayers
             return "1:30";
         }
         final String time = iqamaTimes[index][prayer];
-        return DateTime.parse(time, formatter).plusHours(timeShift).toString(FORMAT);
+        return DateTime.parse(time, getFormatter("h:mm")).plusHours(timeShift).toString("h:mm");
     }
 
     public String getArabicName(int prayer)
@@ -72,6 +68,36 @@ public class Prayers
             return context.getString(R.string.friday_en);
         }
         return context.getResources().getStringArray(R.array.prayers_en)[prayer];
+    }
+
+    public boolean isNextPrayer(int prayer)
+    {
+        if(!Date.today().equals(date))
+        {
+            return false;
+        }
+
+        final DateTime now = DateTime.now();
+        final DateTime prayerTime = getDateTime(prayer, now);
+        DateTime previousPrayerTime = null;
+        if(prayer > 0)
+        {
+           previousPrayerTime = getDateTime(prayer - 1, now);
+        }
+
+        return now.isBefore(prayerTime) && ((previousPrayerTime == null) || now.isAfter(previousPrayerTime));
+    }
+
+    public DateTime getDateTime(int prayer, DateTime date)
+    {
+        final String time = getTime(prayer) + ((prayer > 0) ? "pm" : "am");
+        return DateTime.parse(time , getFormatter("h:mma"))
+                .withDate(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth());
+    }
+
+    private static DateTimeFormatter getFormatter(String format)
+    {
+        return new DateTimeFormatterBuilder().appendPattern(format).toFormatter();
     }
 
     private int getIndex(DateTime date)
