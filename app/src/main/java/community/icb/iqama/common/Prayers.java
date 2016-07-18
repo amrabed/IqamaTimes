@@ -43,7 +43,7 @@ public class Prayers
 
     public String getTime(int prayer)
     {
-        if(isFridayPrayer(prayer))
+        if (isFridayPrayer(prayer))
         {
             // Friday prayer is 1:30PM all year
             return "1:30";
@@ -54,7 +54,7 @@ public class Prayers
 
     public String getArabicName(int prayer)
     {
-        if(isFridayPrayer(prayer))
+        if (isFridayPrayer(prayer))
         {
             return context.getString(R.string.friday_ar);
         }
@@ -63,7 +63,7 @@ public class Prayers
 
     public String getEnglishName(int prayer)
     {
-        if(isFridayPrayer(prayer))
+        if (isFridayPrayer(prayer))
         {
             return context.getString(R.string.friday_en);
         }
@@ -72,7 +72,7 @@ public class Prayers
 
     public boolean isNextPrayer(int prayer)
     {
-        if(!Date.today().equals(date))
+        if (!Date.today().equals(date))
         {
             return false;
         }
@@ -80,9 +80,9 @@ public class Prayers
         final DateTime now = DateTime.now();
         final DateTime prayerTime = getDateTime(prayer, now);
         DateTime previousPrayerTime = null;
-        if(prayer > 0)
+        if (prayer > 0)
         {
-           previousPrayerTime = getDateTime(prayer - 1, now);
+            previousPrayerTime = getDateTime(prayer - 1, now);
         }
 
         return now.isBefore(prayerTime) && ((previousPrayerTime == null) || now.isAfter(previousPrayerTime));
@@ -91,7 +91,7 @@ public class Prayers
     public DateTime getDateTime(int prayer, DateTime date)
     {
         final String time = getTime(prayer) + ((prayer > 0) ? "pm" : "am");
-        return DateTime.parse(time , getFormatter("h:mma"))
+        return DateTime.parse(time, getFormatter("h:mma"))
                 .withDate(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth());
     }
 

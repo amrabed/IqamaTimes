@@ -1,5 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/main"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -22,10 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/primary"
-        android:textColor="@color/logoWhite"
         android:elevation="4dp"
         android:onClick="onClick"
         android:text="@string/support"
+        android:textColor="@color/logoWhite"
         android:textSize="18sp"
         android:textStyle="bold"/>
 </LinearLayout>

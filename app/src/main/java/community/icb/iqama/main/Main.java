@@ -154,7 +154,7 @@ public class Main extends FragmentActivity implements View.OnClickListener,
     public void onCalendarUpdateSuccess()
     {
         getPreferences(MODE_PRIVATE).edit().putString(LAST_UPDATE, Date.today().toString()).apply();
-        showSnackbar("Prayer times added successfully");
+        showMessage("Prayer times added successfully");
     }
 
     @Override
@@ -175,22 +175,22 @@ public class Main extends FragmentActivity implements View.OnClickListener,
             }
             else
             {
-                showSnackbar(error.getMessage());
+                showMessage("An error occurred. If the problem persists, please contact ICB");
             }
         }
         else
         {
-            showSnackbar("Request Cancelled");
+            showMessage("Request Cancelled");
         }
     }
 
     @Override
     public void onConnectionError()
     {
-        showSnackbar("Device not connected to the Internet");
+        showMessage("Device not connected to the Internet");
     }
 
-    private void showSnackbar(String message)
+    private void showMessage(String message)
     {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 //        Snackbar.make(findViewById(R.id.main), message, Snackbar.LENGTH_SHORT).show();

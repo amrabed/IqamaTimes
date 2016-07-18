@@ -81,7 +81,7 @@ public class Section extends Fragment
             holder.englishLabel.setText(prayers.getEnglishName(position));
             holder.time.setText(prayers.getTime(position));
 
-            if(prayers.isNextPrayer(position))
+            if (prayers.isNextPrayer(position))
             {
                 final int highlight = getResources().getColor(R.color.highlight);
                 holder.time.setTextColor(highlight);

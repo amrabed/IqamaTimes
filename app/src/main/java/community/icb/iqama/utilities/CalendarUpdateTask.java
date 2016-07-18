@@ -14,7 +14,6 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.EventReminder;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatterBuilder;
 
 import java.io.IOException;
 import java.util.Arrays;
