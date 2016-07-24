@@ -299,7 +299,7 @@ public class Main extends FragmentActivity implements View.OnClickListener,
         @Override
         public int getCount()
         {
-            return 100;
+            return 31;
         }
 
         @Override

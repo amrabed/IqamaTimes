@@ -77,9 +77,6 @@ public class Section extends Fragment
             final DateTime date = Date.today().plusDays(sectionNumber);
             final Prayers prayers = new Prayers(getContext(), date);
 
-            holder.arabicLabel.setText(prayers.getArabicName(position));
-            holder.englishLabel.setText(prayers.getEnglishName(position));
-            holder.time.setText(prayers.getTime(position));
 
             if (prayers.isNextPrayer(position))
             {
@@ -88,6 +85,10 @@ public class Section extends Fragment
                 holder.arabicLabel.setTextColor(highlight);
                 holder.englishLabel.setTextColor(highlight);
             }
+
+            holder.arabicLabel.setText(prayers.getArabicName(position));
+            holder.englishLabel.setText(prayers.getEnglishName(position));
+            holder.time.setText(prayers.getTime(position));
         }
 
         @Override

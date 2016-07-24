@@ -1,10 +1,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              tools:context=".main.Main">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".main.Main">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
@@ -22,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/primary"
-        android:elevation="4dp"
         android:onClick="onClick"
         android:text="@string/support"
         android:textColor="@color/logoWhite"

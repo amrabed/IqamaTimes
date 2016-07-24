@@ -44,7 +44,7 @@ public class Widget extends AppWidgetProvider
     private static void update(Context context, AppWidgetManager manager, int widgetId)
     {
         final Intent intent = new Intent(context, Main.class);
-        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         final Prayers prayers = new Prayers(context, Date.today());
 
@@ -55,12 +55,6 @@ public class Widget extends AppWidgetProvider
         {
             views.setTextViewText(LABELS[i], prayers.getEnglishName(i));
             views.setTextViewText(TIMES[i], prayers.getTime(i));
-            if (prayers.isNextPrayer(i))
-            {
-                final int highlight = context.getResources().getColor(R.color.highlight);
-                views.setTextColor(LABELS[i], highlight);
-                views.setTextColor(TIMES[i], highlight);
-            }
         }
 
         manager.updateAppWidget(widgetId, views);

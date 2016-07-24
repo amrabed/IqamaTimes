@@ -5,6 +5,9 @@
     <color name="accent">#123123</color>
     <color name="background">#F9F9F9</color>
 
+    <color name="widget_background">#37474f</color>
+    <color name="widget_title">#263238</color>
+
     <color name="logoWhite">#F9F9F9</color>
     <color name="highlight">#d84315</color>
 </resources>
