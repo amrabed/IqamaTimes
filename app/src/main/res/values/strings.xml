@@ -9,4 +9,5 @@
     <string name="already_added">You have already added the current 10 days to the calendar. Add them again?</string>
     <string name="friday_ar">الجمعة</string>
     <string name="friday_en">Jumu\'a</string>
+    <string name="common_google_play_services_api_unavailable_text">Google play services API unavailable</string>
 </resources>

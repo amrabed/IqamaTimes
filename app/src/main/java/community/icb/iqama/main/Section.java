@@ -51,7 +51,7 @@ public class Section extends Fragment
                              Bundle savedInstanceState)
     {
         final View view = inflater.inflate(R.layout.section, container, false);
-        final RecyclerView listView = (RecyclerView) view.findViewById(R.id.times);
+        final RecyclerView listView = view.findViewById(R.id.times);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
         listView.setAdapter(new Adapter());
         return view;
@@ -97,16 +97,16 @@ public class Section extends Fragment
             return 5;
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder
+        class ViewHolder extends RecyclerView.ViewHolder
         {
             TextView englishLabel, arabicLabel, time;
 
-            public ViewHolder(View view)
+            ViewHolder(View view)
             {
                 super(view);
-                englishLabel = (TextView) view.findViewById(R.id.label);
-                arabicLabel = (TextView) view.findViewById(R.id.label_ar);
-                time = (TextView) view.findViewById(R.id.iqama);
+                englishLabel = view.findViewById(R.id.label);
+                arabicLabel = view.findViewById(R.id.label_ar);
+                time = view.findViewById(R.id.iqama);
             }
         }
     }
