@@ -3,6 +3,7 @@ package community.icb.iqama.main;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -80,7 +81,7 @@ public class Section extends Fragment
 
             if (prayers.isNextPrayer(position))
             {
-                final int highlight = getResources().getColor(R.color.highlight);
+                final int highlight = ContextCompat.getColor(getContext(), R.color.highlight);
                 holder.time.setTextColor(highlight);
                 holder.arabicLabel.setTextColor(highlight);
                 holder.englishLabel.setTextColor(highlight);
