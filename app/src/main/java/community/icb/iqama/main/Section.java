@@ -3,6 +3,7 @@ package community.icb.iqama.main;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,7 +52,7 @@ public class Section extends Fragment
                              Bundle savedInstanceState)
     {
         final View view = inflater.inflate(R.layout.section, container, false);
-        final RecyclerView listView = (RecyclerView) view.findViewById(R.id.times);
+        final RecyclerView listView = view.findViewById(R.id.times);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
         listView.setAdapter(new Adapter());
         return view;
@@ -80,7 +81,7 @@ public class Section extends Fragment
 
             if (prayers.isNextPrayer(position))
             {
-                final int highlight = getResources().getColor(R.color.highlight);
+                final int highlight = ContextCompat.getColor(getContext(), R.color.highlight);
                 holder.time.setTextColor(highlight);
                 holder.arabicLabel.setTextColor(highlight);
                 holder.englishLabel.setTextColor(highlight);
@@ -97,16 +98,16 @@ public class Section extends Fragment
             return 5;
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder
+        class ViewHolder extends RecyclerView.ViewHolder
         {
             TextView englishLabel, arabicLabel, time;
 
-            public ViewHolder(View view)
+            ViewHolder(View view)
             {
                 super(view);
-                englishLabel = (TextView) view.findViewById(R.id.label);
-                arabicLabel = (TextView) view.findViewById(R.id.label_ar);
-                time = (TextView) view.findViewById(R.id.iqama);
+                englishLabel = view.findViewById(R.id.label);
+                arabicLabel = view.findViewById(R.id.label_ar);
+                time = view.findViewById(R.id.iqama);
             }
         }
     }
