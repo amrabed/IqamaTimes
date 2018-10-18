@@ -26,6 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".calendar.Settings"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/settings"
+            android:theme="@style/AppTheme"/>
 
         <receiver android:name="values.Widget">
             <intent-filter>

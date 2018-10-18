@@ -9,5 +9,8 @@
     <string name="already_added">You have already added the current 10 days to the calendar. Add them again?</string>
     <string name="friday_ar">الجمعة</string>
     <string name="friday_en">Jumu\'a</string>
-    <string name="common_google_play_services_api_unavailable_text">Google Play Services is unavailable</string>
+    <string name="pref_description_add_to_cal">Automatically add prayer times to your Google Calendar every 10 days</string>
+    <string name="pref_title_add_to_calendar">Add prayer times to Google Calendar</string>
+    <string name="settings">Settings</string>
+    <string name="common_google_play_services_api_unavailable_text">\"Google Play Services API is not available</string>
 </resources>
