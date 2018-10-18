@@ -18,26 +18,18 @@ import community.icb.iqama.utilities.Date;
 public class Prayers {
     private static final int FRIDAY = 5;
 
-    public static final int FAJR = 0;
-    public static final int DHUHR = 1;
-    public static final int ASR = 2;
-    public static final int MAGHRIB = 3;
-    public static final int ISHA = 4;
+    //    public static final int ASR = 2;
+//    public static final int MAGHRIB = 3;
+//    public static final int ISHA = 4;
     public static final int COUNT = 5;
+    public static final String[] NAMES = {"Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"};
 
-    private final Context context;
     private final DateTime date;
 
     private final int index;
     private final int timeShift;
-
-    public Prayers(Context context, DateTime date) {
-        this.context = context;
-        this.date = date;
-
-        index = getIndex(date);
-        timeShift = getTimeShift(date);
-    }
+    //    public static final int FAJR = 0;
+    private static final int DHUHR = 1;
 
     private static DateTimeFormatter getFormatter(String format) {
         return new DateTimeFormatterBuilder().appendPattern(format).toFormatter();
@@ -52,18 +44,18 @@ public class Prayers {
         return DateTime.parse(time, getFormatter("h:mm")).plusHours(timeShift).toString("h:mm");
     }
 
-    public String getArabicName(int prayer) {
+    public Prayers(DateTime date) {
+        this.date = date;
+
+        index = getIndex(date);
+        timeShift = getTimeShift(date);
+    }
+
+    public String getArabicName(Context context, int prayer) {
         if (isFridayPrayer(prayer)) {
             return context.getString(R.string.friday_ar);
         }
         return context.getResources().getStringArray(R.array.prayers_ar)[prayer];
-    }
-
-    public String getEnglishName(int prayer) {
-        if (isFridayPrayer(prayer)) {
-            return context.getString(R.string.friday_en);
-        }
-        return context.getResources().getStringArray(R.array.prayers_en)[prayer];
     }
 
     public boolean isNextPrayer(int prayer) {
@@ -126,6 +118,13 @@ public class Prayers {
 
     private boolean isStandardTime(DateTime dateTime) {
         return DateTimeZone.getDefault().isStandardOffset(dateTime.toInstant().getMillis());
+    }
+
+    public String getEnglishName(Context context, int prayer) {
+        if (isFridayPrayer(prayer)) {
+            return context.getString(R.string.friday_en);
+        }
+        return context.getResources().getStringArray(R.array.prayers_en)[prayer];
     }
 
     private static final String iqamaTimes[][] = {{"6:40", "12:45", "3:15", "5:30", "7:00"},

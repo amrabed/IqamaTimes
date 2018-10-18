@@ -1,6 +1,5 @@
 package community.icb.iqama.main;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,11 +53,6 @@ public class Section extends Fragment {
         return view;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
     private class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         @NonNull
         @Override
@@ -69,7 +63,7 @@ public class Section extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             final DateTime date = Date.today().plusDays(sectionNumber);
-            final Prayers prayers = new Prayers(getContext(), date);
+            final Prayers prayers = new Prayers(date);
 
 
             if (prayers.isNextPrayer(position)) {
@@ -79,8 +73,8 @@ public class Section extends Fragment {
                 holder.englishLabel.setTextColor(highlight);
             }
 
-            holder.arabicLabel.setText(prayers.getArabicName(position));
-            holder.englishLabel.setText(prayers.getEnglishName(position));
+            holder.arabicLabel.setText(prayers.getArabicName(getContext(), position));
+            holder.englishLabel.setText(prayers.getEnglishName(getContext(), position));
             holder.time.setText(prayers.getTime(position));
         }
 
@@ -90,7 +84,7 @@ public class Section extends Fragment {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            TextView englishLabel, arabicLabel, time;
+            final TextView englishLabel, arabicLabel, time;
 
             ViewHolder(View view) {
                 super(view);
