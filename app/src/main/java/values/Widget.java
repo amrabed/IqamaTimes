@@ -22,13 +22,13 @@ public class Widget extends AppWidgetProvider {
         final Intent intent = new Intent(context, Main.class);
         final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-        final Prayers prayers = new Prayers(context, Date.today());
+        final Prayers prayers = new Prayers(Date.today());
 
         views.setOnClickPendingIntent(R.id.widget, pendingIntent);
         views.setTextViewText(R.id.date, Date.today().toString(Date.DEFAULT_FORMAT));
 
         for (int i = 0; i < 5; i++) {
-            views.setTextViewText(LABELS[i], prayers.getEnglishName(i));
+            views.setTextViewText(LABELS[i], Prayers.NAMES[i]);
             views.setTextViewText(TIMES[i], prayers.getTime(i));
         }
 
