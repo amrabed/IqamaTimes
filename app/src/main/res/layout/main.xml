@@ -1,22 +1,21 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".main.Main">
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6">
 
-        <android.support.v4.view.PagerTabStrip
+        <androidx.viewpager.widget.PagerTabStrip
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:textAlignment="center"/>
-    </android.support.v4.view.ViewPager>
+            android:textAlignment="center" />
+    </androidx.viewpager.widget.ViewPager>
 
     <Button
         android:layout_width="match_parent"
@@ -26,5 +25,5 @@
         android:text="@string/support"
         android:textColor="@color/logoWhite"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 </LinearLayout>

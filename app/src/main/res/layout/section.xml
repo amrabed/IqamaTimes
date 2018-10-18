@@ -1,8 +1,8 @@
-<android.support.v7.widget.RecyclerView android:id="@+id/times"
-                                        xmlns:android="http://schemas.android.com/apk/res/android"
-                                        xmlns:tools="http://schemas.android.com/tools"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:layout_margin="10dp"
-                                        tools:context=".main.Section"/>
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/times"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    tools:context=".main.Section" />

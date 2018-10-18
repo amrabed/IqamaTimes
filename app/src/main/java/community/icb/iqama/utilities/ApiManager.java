@@ -18,22 +18,15 @@ import java.util.Arrays;
  *
  * @author AmrAbed
  */
-public class ApiManager
-{
+public class ApiManager {
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
 
     private final Context context;
 
-    public GoogleAccountCredential getCredential()
-    {
-        return credential;
-    }
-
     private final GoogleAccountCredential credential;
     private final Listener listener;
 
-    public ApiManager(Activity context, Listener listener)
-    {
+    public ApiManager(Activity context, Listener listener) {
         this.context = context;
         this.listener = listener;
 
@@ -43,60 +36,50 @@ public class ApiManager
 
     }
 
-    public void getApiResults()
-    {
-        if (!isGooglePlayServicesAvailable())
-        {
+    public GoogleAccountCredential getCredential() {
+        return credential;
+    }
+
+    public void getApiResults() {
+        if (!isGooglePlayServicesAvailable()) {
             acquireGooglePlayServices();
-        }
-        else if (credential.getSelectedAccountName() == null)
-        {
+        } else if (credential.getSelectedAccountName() == null) {
             listener.chooseAccount();
-        }
-        else if (!isDeviceOnline())
-        {
+        } else if (!isDeviceOnline()) {
             listener.onConnectionError();
-        }
-        else
-        {
+        } else {
             listener.onApiReady(credential);
         }
 
     }
 
-    private boolean isDeviceOnline()
-    {
+    private boolean isDeviceOnline() {
         final ConnectivityManager manager =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         return (networkInfo != null && networkInfo.isConnected());
     }
 
-    private boolean isGooglePlayServicesAvailable()
-    {
+    private boolean isGooglePlayServicesAvailable() {
         final GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         final int connectionStatusCode = apiAvailability.isGooglePlayServicesAvailable(context);
         return connectionStatusCode == ConnectionResult.SUCCESS;
     }
 
 
-    private void acquireGooglePlayServices()
-    {
+    private void acquireGooglePlayServices() {
         final GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         final int connectionStatusCode = apiAvailability.isGooglePlayServicesAvailable(context);
-        if (apiAvailability.isUserResolvableError(connectionStatusCode))
-        {
+        if (apiAvailability.isUserResolvableError(connectionStatusCode)) {
             listener.onApiError(connectionStatusCode);
         }
     }
 
-    public void setAccountName(String accountName)
-    {
+    public void setAccountName(String accountName) {
         credential.setSelectedAccountName(accountName);
     }
 
-    public interface Listener
-    {
+    public interface Listener {
         void onConnectionError();
 
         void onApiError(int connectionStatusCode);

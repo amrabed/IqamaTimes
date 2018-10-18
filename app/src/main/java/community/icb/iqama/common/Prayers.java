@@ -15,8 +15,7 @@ import community.icb.iqama.utilities.Date;
  *
  * @author AmrAbed
  */
-public class Prayers
-{
+public class Prayers {
     private static final int FRIDAY = 5;
 
     public static final int FAJR = 0;
@@ -32,8 +31,7 @@ public class Prayers
     private final int index;
     private final int timeShift;
 
-    public Prayers(Context context, DateTime date)
-    {
+    public Prayers(Context context, DateTime date) {
         this.context = context;
         this.date = date;
 
@@ -41,10 +39,12 @@ public class Prayers
         timeShift = getTimeShift(date);
     }
 
-    public String getTime(int prayer)
-    {
-        if (isFridayPrayer(prayer))
-        {
+    private static DateTimeFormatter getFormatter(String format) {
+        return new DateTimeFormatterBuilder().appendPattern(format).toFormatter();
+    }
+
+    public String getTime(int prayer) {
+        if (isFridayPrayer(prayer)) {
             // Friday prayer is 1:30PM all year
             return "1:30";
         }
@@ -52,56 +52,42 @@ public class Prayers
         return DateTime.parse(time, getFormatter("h:mm")).plusHours(timeShift).toString("h:mm");
     }
 
-    public String getArabicName(int prayer)
-    {
-        if (isFridayPrayer(prayer))
-        {
+    public String getArabicName(int prayer) {
+        if (isFridayPrayer(prayer)) {
             return context.getString(R.string.friday_ar);
         }
         return context.getResources().getStringArray(R.array.prayers_ar)[prayer];
     }
 
-    public String getEnglishName(int prayer)
-    {
-        if (isFridayPrayer(prayer))
-        {
+    public String getEnglishName(int prayer) {
+        if (isFridayPrayer(prayer)) {
             return context.getString(R.string.friday_en);
         }
         return context.getResources().getStringArray(R.array.prayers_en)[prayer];
     }
 
-    public boolean isNextPrayer(int prayer)
-    {
-        if (!Date.today().equals(date))
-        {
+    public boolean isNextPrayer(int prayer) {
+        if (!Date.today().equals(date)) {
             return false;
         }
 
         final DateTime now = DateTime.now();
         final DateTime prayerTime = getDateTime(prayer, now);
         DateTime previousPrayerTime = null;
-        if (prayer > 0)
-        {
+        if (prayer > 0) {
             previousPrayerTime = getDateTime(prayer - 1, now);
         }
 
         return now.isBefore(prayerTime) && ((previousPrayerTime == null) || now.isAfter(previousPrayerTime));
     }
 
-    public DateTime getDateTime(int prayer, DateTime date)
-    {
+    public DateTime getDateTime(int prayer, DateTime date) {
         final String time = getTime(prayer) + ((prayer > 0) ? "pm" : "am");
         return DateTime.parse(time, getFormatter("h:mma"))
                 .withDate(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth());
     }
 
-    private static DateTimeFormatter getFormatter(String format)
-    {
-        return new DateTimeFormatterBuilder().appendPattern(format).toFormatter();
-    }
-
-    private int getIndex(DateTime date)
-    {
+    private int getIndex(DateTime date) {
         final int month = date.getMonthOfYear();
         final int day = date.getDayOfMonth();
 
@@ -109,47 +95,36 @@ public class Prayers
         return 3 * (month - 1) + offset;
     }
 
-    private int getTimeShift(DateTime date)
-    {
+    private int getTimeShift(DateTime date) {
         final int month = date.getMonthOfYear();
         // ToDo (AmrAbed): Handle dayligth saving
-        if (month != 3 && month != 11)
-        {
+        if (month != 3 && month != 11) {
             return 0;
         }
 
-        if (month == 3)
-        {
-            if (isStandardTime(date))
-            {
+        if (month == 3) {
+            if (isStandardTime(date)) {
                 return -1;
-            }
-            else
-            {
+            } else {
                 return 0;
             }
         }
 
         //if(month == 11)
         {
-            if (isStandardTime(date))
-            {
+            if (isStandardTime(date)) {
                 return 0;
-            }
-            else
-            {
+            } else {
                 return 1;
             }
         }
     }
 
-    private boolean isFridayPrayer(int prayer)
-    {
+    private boolean isFridayPrayer(int prayer) {
         return prayer == DHUHR && date.getDayOfWeek() == FRIDAY;
     }
 
-    private boolean isStandardTime(DateTime dateTime)
-    {
+    private boolean isStandardTime(DateTime dateTime) {
         return DateTimeZone.getDefault().isStandardOffset(dateTime.toInstant().getMillis());
     }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:initialKeyguardLayout="@layout/widget"
-                    android:initialLayout="@layout/widget"
-                    android:minHeight="40dp"
-                    android:minWidth="250dp"
-                    android:resizeMode="horizontal"
-                    android:updatePeriodMillis="43200000"
-                    android:widgetCategory="home_screen|keyguard"/>
+    android:initialKeyguardLayout="@layout/widget"
+    android:initialLayout="@layout/widget"
+    android:minWidth="250dp"
+    android:minHeight="40dp"
+    android:resizeMode="horizontal"
+    android:updatePeriodMillis="43200000"
+    android:widgetCategory="home_screen|keyguard" />
