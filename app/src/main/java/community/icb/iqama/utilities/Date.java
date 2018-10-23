@@ -8,21 +8,28 @@ import org.joda.time.DateTimeZone;
  *
  * @author AmrAbed
  */
-public class Date {
-    private static final DateTimeZone TIME_ZONE = DateTimeZone.getDefault();
+public class Date
+{
+	public static final String DEFAULT_FORMAT = "EEE, MMMM d";
+	private static final DateTimeZone TIME_ZONE = DateTimeZone.getDefault();
 
-    public static final String DEFAULT_FORMAT = "EEE, MMMM d";
+	private Date()
+	{
+	}
 
-    public static DateTime today() {
-        return DateTime.now(TIME_ZONE);
-    }
+	public static DateTime today()
+	{
+		return DateTime.now(TIME_ZONE);
+	}
 
-    public static DateTime tomorrow() {
-        return today().plusDays(1);
-    }
+	public static DateTime tomorrow()
+	{
+		return today().plusDays(1);
+	}
 
-    // For debugging purposes only
-    public static DateTime get(int year, int month, int day) {
-        return new DateTime(year, month, day, 3, 0, TIME_ZONE);
-    }
+	// For debugging purposes only
+	public static DateTime get(int year, int month, int day)
+	{
+		return new DateTime(year, month, day, 3, 0, TIME_ZONE);
+	}
 }
